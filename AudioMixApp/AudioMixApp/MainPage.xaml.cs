@@ -22,7 +22,7 @@ namespace AudioMixApp
         Reader player;
         CreatingPlaylist playList;
         double newPosition = 0;
-        OcrEngine ocrEngine;
+        //OcrEngine ocrEngine;
         UInt32 width;
         UInt32 height;
         private MediaPlayer mediaPlayer;
@@ -32,7 +32,7 @@ namespace AudioMixApp
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
-            ocrEngine = new OcrEngine(OcrLanguage.English);
+            //ocrEngine = new OcrEngine(OcrLanguage.English);
             OcrText.IsReadOnly = true;
             sliderVolume.Value = 100;
         }
@@ -118,31 +118,31 @@ namespace AudioMixApp
 
         private async void Extract_Click(object sender, RoutedEventArgs e)
         {
-            var file = await Package.Current.InstalledLocation.GetFileAsync("Assets\\sample.png");
-            var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
-            var decoder = await BitmapDecoder.CreateAsync(stream);
-            //ImageProperties imgProp = await file.Properties.GetImagePropertiesAsync();
+            //var file = await Package.Current.InstalledLocation.GetFileAsync("Assets\\sample.png");
+            //var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
+            //var decoder = await BitmapDecoder.CreateAsync(stream);
+            ////ImageProperties imgProp = await file.Properties.GetImagePropertiesAsync();
             
-            width = decoder.PixelWidth;
-            height = decoder.PixelHeight;
+            //width = decoder.PixelWidth;
+            //height = decoder.PixelHeight;
 
-            var pixels = await decoder.GetPixelDataAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight,
-                        new BitmapTransform(), ExifOrientationMode.RespectExifOrientation, ColorManagementMode.ColorManageToSRgb);
+            //var pixels = await decoder.GetPixelDataAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Straight,
+            //            new BitmapTransform(), ExifOrientationMode.RespectExifOrientation, ColorManagementMode.ColorManageToSRgb);
 
-            OcrResult or = await ocrEngine.RecognizeAsync(height, width, pixels.DetachPixelData());
+            //OcrResult or = await ocrEngine.RecognizeAsync(height, width, pixels.DetachPixelData());
 
-            if (or.Lines != null)
-            {
-                string recognizedText = "";
-                foreach (var line in or.Lines)
-                {
-                    foreach (var word in line.Words)
-                        recognizedText += word.Text + " ";
-                    recognizedText += Environment.NewLine;
-                }
+            //if (or.Lines != null)
+            //{
+            //    string recognizedText = "";
+            //    foreach (var line in or.Lines)
+            //    {
+            //        foreach (var word in line.Words)
+            //            recognizedText += word.Text + " ";
+            //        recognizedText += Environment.NewLine;
+            //    }
 
-                OcrText.Text = recognizedText;
-            }
+            //    OcrText.Text = recognizedText;
+            //}
         }
 
         private void OpenButtonClick(Object sender, RoutedEventArgs e)
